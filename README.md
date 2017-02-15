@@ -10,7 +10,10 @@ or information must be shown. Also, since my colleagues on the stand don't
 ##Good to know
 
 * The loop_videos.sh script will play videos found on an attached USB drive's "Movies" or "movies"
-directory in alphabetical order. 
+directory in alphabetical order.
+* When the USB disk is removed, the script detects this and shuts the system down gracefully. 
+The scripts detects it after the mediaplayer stops (because it cannot read the movie). It may take
+some time (tens of seconds) before the mediaplayer finished playing it buffer.
 * As this was to be used on a trade show __without sound__, the audio output device is set to local 
 instead of the default "hdmi". So unless you attach something to the headphone jack, you won't hear
 anything.

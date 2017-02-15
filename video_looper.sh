@@ -5,8 +5,8 @@ set -e
 disk=$(ls /dev/sd?1 | head -n 1)
 
 if [ -z $disk ]; then
-	echo "No USB disk found"
-	exit
+    echo "No USB disk found"
+    exit
 fi
 
 # Ensure no text is visible between videos
@@ -22,8 +22,15 @@ cd /mnt/usb/Movies || cd /mnt/usb/movies
 files=(*)
 while :
 do
-	for movie in "${files[@]}"; do
-		clear
-		omxplayer -o local --hdmiclocksync "$movie" || true
-	done
+    for movie in "${files[@]}"; do
+        clear
+        omxplayer -o local --hdmiclocksync "$movie" || true
+
+        disk=$(ls /dev/sd?1 | head -n 1)
+        if [ -z $disk ]; then
+            # USB disk is gone
+            setterm -foreground white
+            sudo shutdown -h now
+        fi
+    done
 done
