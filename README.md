@@ -26,11 +26,26 @@ USB drive.
 
 This is what I did on a Raspberry PI to use the script:
 
-* Install Raspbian on the Raspberry PI (Jessie edition, but that is probably not very important)
+* Install Raspbian Lite on the Raspberry PI (Jessie edition but that is probably not important)
+* sudo apt-get update
+* sudo apt-get install git omxplayer
 * Via "sudo raspi-config" configure the board to login automatically without starting the GUI.
-  __This is an important step__ as in this mode, Raspbian will not automatically mount USB drives, which is 
-  something the script expects to do in it's own way.
-* Copy loop_videos.sh to the home directory /home/pi
-* Add "./loop_videos.sh" to /home/pi/.profile
+  __This is an important step__ as in this mode, Raspbian will not automatically mount USB drives,
+  which is something the script expects to do in it's own way.
+* sudo mkdir /mnt/usb
+* in home directory: git clone https://www.github.com/markvandeveerdonk/RaspberryVideoLooper
+* Add "RaspberryVideoLooper/loop_videos.sh" to /home/pi/.profile:
+	echo "RaspberryVideoLooper/loop_videos.sh" >> /home/pi/.profile
 
+* Optional steps I did:
+	* Enable "airplane mode". Create `/etc/modprobe.d/raspi-blacklist.conf` containing:
+ `# WiFi
+blacklist brcmfmac
+blacklist brcmutil
+_# Bluetooth
+blacklist btbcm
+blacklist hci_uart`
+	* Change default password :-)
+	
 That's it! Happy video looping!
+
